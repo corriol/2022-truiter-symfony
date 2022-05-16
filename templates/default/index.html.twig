@@ -1,0 +1,37 @@
+{% extends 'base_truiter.html.twig' %}
+
+{% block body %}
+
+
+<h2>Darrers truits</h2>
+{% if message %}
+<div class="alert alert-primary" role="alert">{{ message }}</div>
+{% endif %}
+
+<form class="mb-4" method="post" action="tuit-process.php">
+    <textarea name="text" class="form-control mb-2" placeholder="Què passa, [nom d'usuari]?"></textarea>
+    <button type="submit" class="btn btn-primary">Tuit</button>
+    <a class="btn btn-secondary" href="tuit-with-image.php"">
+    <i class="bi color-primary bi-image"></i> Tuit amb imatge</a>
+</form>
+
+{%  for truit in truits %}
+ <div class="card mb-2">
+    <div class="card-body">
+        <h5 class="card-title">{{ truit.name }}</h5>
+        <h6 class="card-subtitle mb-2 text-muted">@{{ truit.username }}</h6>
+        <p class="card-text">{{ truit.text }}</p>
+
+        {% if truit.image is defined %}
+        <div  style="width: 150px; height: auto" >
+            <img class="w-100 h-100" style="object-fit: scale-down" src="images/{{ truit.image }}" alt="image"/>
+        </div>
+        {%  endif %}
+
+    </div>
+    <div class="card-footer text-muted">
+        {{ truit.createdAt | date('Y-m-d') }}
+    </div>
+</div>
+{% endfor %}
+{% endblock %}
