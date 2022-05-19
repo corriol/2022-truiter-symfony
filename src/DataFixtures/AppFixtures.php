@@ -3,6 +3,7 @@
 namespace App\DataFixtures;
 
 use App\Entity\Tweet;
+use App\Entity\User;
 use DateTime;
 use Faker\Factory;
 use Faker\Generator;
@@ -20,11 +21,21 @@ class AppFixtures extends Fixture
 
     public function load(ObjectManager $manager): void
     {
+        $users = [];
+        for ($i=0; $i<3; $i++) {
+            $user = new User();
+            $user->setName($this->faker->name);
+            $user->setUsername(($this->faker->userName));
+            $user->setPassword("nopassword");
+            $manager->persist($user);
+            $users[] = $user;
+        }
 
         for ($i=0; $i<20; $i++) {
             $tweet = new Tweet();
             $tweet->setText($this->faker->realText(140));
             $tweet->setCreatedAt($this->faker->dateTimeBetween('-1 month'));
+            $tweet->setUser($users[array_rand($users)]);
             $manager->persist($tweet);
         }
         $manager->flush();

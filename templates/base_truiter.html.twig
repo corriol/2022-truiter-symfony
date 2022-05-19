@@ -10,6 +10,18 @@
 
 
 <main class="border-top mt-4 border-4 border-primary container">
+    <div class="container mt-3">
+    {# read and display all flash messages #}
+    {% for label, messages in app.flashes %}
+        {% for message in messages %}
+            <div class="alert alert-{{ label }} alert-dismissible fade show" role="alert">
+                {{ message }}
+                <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close">
+                </button>
+            </div>
+        {% endfor %}
+    {% endfor %}
+    </div>
     <div class="row">
         <div class="position-fixed col-2 border d-flex flex-column justify-content-between h-75">
             {% include '_sidebar.html.twig' %}
