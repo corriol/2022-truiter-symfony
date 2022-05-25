@@ -6,10 +6,23 @@ use App\Repository\UserRepository;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
+use Doctrine\ORM\Mapping\Table;
+use Doctrine\ORM\Mapping\UniqueConstraint;
+
+use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
 use Symfony\Component\Security\Core\User\UserInterface;
+use Symfony\Component\Validator\Constraints as Assert;
 
 /**
  * @ORM\Entity(repositoryClass=UserRepository::class)
+ *  @Table(name="user",
+ *      uniqueConstraints={
+ *          @UniqueConstraint(name="IDX_UNIQUE_USERNAME",
+ *                  columns={"username"}
+ *          )
+ *      }
+ * )
+ * @UniqueEntity(fields={"username"}, message="There is already an account with this username")
  */
 class User implements UserInterface
 {
@@ -22,6 +35,7 @@ class User implements UserInterface
 
     /**
      * @ORM\Column(type="string", length=255)
+     * @Assert\NotNull (message="El nom de l'usuari és obligatori")
      */
     private $name;
 
@@ -29,6 +43,8 @@ class User implements UserInterface
      * @ORM\Column(type="string", length=255)
      */
     private $username;
+
+    //TODO: Afegir una restricció en quant a noms d'usuari
 
     /**
      * @ORM\Column(type="string", length=255)

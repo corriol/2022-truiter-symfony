@@ -21,22 +21,6 @@
     {% endif %}
 
     {% for truit in truits %}
-        <div class="card mb-2">
-            <div class="card-body">
-                <h5 class="card-title">{{ truit.user.name }}</h5>
-                <h6 class="card-subtitle mb-2 text-muted">@{{ truit.user.username }}</h6>
-                <p class="card-text">{{ truit.text }}</p>
-
-                {#  {% if truit.image is defined %}
-        <div  style="width: 150px; height: auto" >
-            <img class="w-100 h-100" style="object-fit: scale-down" src="images/{{ truit.image }}" alt="image"/>
-        </div>
-        {%  endif %} #}
-
-            </div>
-            <div class="card-footer text-muted">
-                {{ truit.createdAt | date('Y-m-d h:i:s') }}
-            </div>
-        </div>
+        {% include '_tuit.html.twig' %}
     {% endfor %}
 {% endblock %}
