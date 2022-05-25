@@ -25,17 +25,22 @@ class DefaultController extends AbstractController
         $tweets = $tweetRepository->findBy([], ["createdAt" => "desc"]);
 
         $tweet = new Tweet();
-        $tweet->setCreatedAt(new DateTime());
-
         $form = $this->createForm(TweetType::class, $tweet);
 
-        $form->handleRequest($request);
-        if ($form->isSubmitted() && $form->isValid()) {
+        if (!empty($this->getUser())) {
+            $tweet->setCreatedAt(new DateTime());
+            $tweet->setUser($this->getUser());
 
-            $tweetRepository->add($tweet, true);
-            $this->addFlash("info", "El tuit s'ha creat amb èxit");
+            $form = $this->createForm(TweetType::class, $tweet);
 
-            return $this->redirectToRoute('home');
+            $form->handleRequest($request);
+            if ($form->isSubmitted() && $form->isValid()) {
+
+                $tweetRepository->add($tweet, true);
+                $this->addFlash("info", "El tuit s'ha creat amb èxit");
+
+                return $this->redirectToRoute('home');
+            }
         }
 
         return $this->render('default/index.html.twig', [

@@ -35,6 +35,8 @@ class Tweet
     /**
      * @ORM\ManyToOne(targetEntity=User::class, inversedBy="tweets")
      * @ORM\JoinColumn(nullable=false)
+     * @Assert\NotNull(message="L'usuari no pot ser null")
+     *
      */
     private $user;
 

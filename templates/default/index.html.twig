@@ -5,18 +5,20 @@
 
     <h2>Darrers truits</h2>
 
-    {{ form_start(form, {'attr': {'novalidate': 'novalidate'}} ) }}
-    {{ form_widget(form) }}
-    <button type="submit" class="btn btn-primary">Tuit</button>
-    {#
-    <form class="mb-4" method="post" action="tuit-process.php">
-        <textarea name="text" class="form-control mb-2" placeholder="Què passa, [nom d'usuari]?"></textarea>
+    {% if app.user %}
+        {{ form_start(form, {'attr': {'novalidate': 'novalidate'}} ) }}
+        {{ form_widget(form) }}
         <button type="submit" class="btn btn-primary">Tuit</button>
-        <a class="btn btn-secondary" href="tuit-with-image.php">
-        <i class="bi color-primary bi-image"></i> Tuit amb imatge</a>
-    </form>
-    #}
-    {{ form_end(form) }}
+        {#
+        <form class="mb-4" method="post" action="tuit-process.php">
+            <textarea name="text" class="form-control mb-2" placeholder="Què passa, [nom d'usuari]?"></textarea>
+            <button type="submit" class="btn btn-primary">Tuit</button>
+            <a class="btn btn-secondary" href="tuit-with-image.php">
+            <i class="bi color-primary bi-image"></i> Tuit amb imatge</a>
+        </form>
+        #}
+        {{ form_end(form) }}
+    {% endif %}
 
     {% for truit in truits %}
         <div class="card mb-2">
