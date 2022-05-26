@@ -1,7 +1,10 @@
 <div class="card mb-2">
     <div class="card-body">
-        <h5 class="card-title"><a href="{{ path('app_user', { 'username': truit.user.username}) }}">{{ truit.user.name }}</a></h5>
-        <h6 class="card-subtitle mb-2 text-muted">@{{ truit.user.username }}</h6>
+        <div class="d-flex justify-content-between">
+        <h5 class="card-title"><a href="{{ path('app_user', { 'username': truit.user.username}) }}">{{ truit.user.name }}</a>
+            <small class="text-muted">@{{ truit.user.username }}</small></h5>
+        <div>{{ truit.createdAt | date('Y-m-d h:i:s') }}</div>
+        </div>
         <p class="card-text">{{ truit.text }}</p>
 
         {#  {% if truit.image is defined %}
@@ -11,10 +14,11 @@
         {%  endif %} #}
 
     </div>
-    <div class="card-footer text-muted">
-        <div>        {{ truit.createdAt | date('Y-m-d h:i:s') }}</div>
-        <div><i class="bi bi-heart"></i></div>
-
+    <div class="card-footer d-flex justify-content-between text-muted">
+        <div class="pe-5"><i class="bi bi-chat"></i></div>
+        <div class="pe-5"><i class="bi bi-arrow-repeat"></i></div>
+        <div class="pe-5"><i class="bi bi-heart"></i></div>
+        <div class="pe-5"><i class="bi bi-share"></i></div>
     </div>
 
 </div>

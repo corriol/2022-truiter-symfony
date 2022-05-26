@@ -2,7 +2,7 @@
 
 {% block body %}
 
-
+<main class="p-3">
     <h2>Darrers truits</h2>
 
     {% if app.user %}
@@ -23,4 +23,5 @@
     {% for truit in truits %}
         {% include '_tuit.html.twig' %}
     {% endfor %}
+    </main>
 {% endblock %}
