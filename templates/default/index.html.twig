@@ -6,7 +6,7 @@
     <h2>Darrers truits</h2>
 
     {% if app.user %}
-        {{ form_start(form, {'attr': {'novalidate': 'novalidate'}} ) }}
+        {{ form_start(form, {attr: {'novalidate': 'novalidate', 'class':'mb-3'}} ) }}
         {{ form_widget(form) }}
         <button type="submit" class="btn btn-primary">Tuit</button>
         {#

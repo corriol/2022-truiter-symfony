@@ -2,11 +2,15 @@
 
 namespace App\Controller;
 
+use App\Form\UserType;
 use App\Repository\TweetRepository;
 use App\Repository\UserRepository;
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
+
 
 class UserController extends AbstractController
 {
@@ -30,8 +34,26 @@ class UserController extends AbstractController
 
     /**
      * @Route("/settings/profile", name="app_settings_profile")
+     * @IsGranted("ROLE_USER")
      */
-    public function profile(): Response {
-        return new Response("It works!");
+    public function profile(Request $request, UserRepository $userRepository): Response {
+
+        $user = $this->getUser();
+        $form = $this->createForm(UserType::class, $user);
+
+        $form->handleRequest($request);
+
+        if ($form->isSubmitted() && $form->isValid()) {
+
+            $userRepository->add($user, true);
+
+            $this->addFlash('info', "Els canvis s'han realitzat correctament");
+            return $this->redirectToRoute("app_settings_profile");
+        }
+        return $this->render('user/profile.html.twig',
+        [
+            'form'=>$form->createView()
+        ]);
+
     }
 }
