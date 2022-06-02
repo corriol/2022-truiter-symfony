@@ -42,6 +42,13 @@ class AppFixtures extends Fixture
             $users[] = $user;
         }
 
+        foreach($users as $user) {
+            for ($i=0; $i<3; $i++) {
+                $user->addFollowing($users[array_rand($users)]);
+            }
+        }
+
+
         for ($i=0; $i<20; $i++) {
             $tweet = new Tweet();
             $tweet->setText($this->faker->realText(140));

@@ -2,6 +2,7 @@
 
 namespace App\Controller;
 
+use App\Entity\User;
 use App\Form\UserType;
 use App\Repository\TweetRepository;
 use App\Repository\UserRepository;
@@ -20,9 +21,10 @@ class UserController extends AbstractController
     public function index(string $username, TweetRepository $tweetRepository,
     UserRepository $userRepository): Response
     {
+        dump($username);
         $user = $userRepository->findOneBy(["username"=>$username]);
         if (empty($user))
-            $this->createNotFoundException("L'usuari $username no existeix!");
+            throw $this->createNotFoundException("L'usuari $username no existeix!");
 
         $tuits = $tweetRepository->findBy(["user"=>$user], ["createdAt"=>"DESC"]);
 
@@ -56,4 +58,13 @@ class UserController extends AbstractController
         ]);
 
     }
+
+    /**
+     * @Route("/users/{id}/following", name="app_users_following", methods={"POST"})
+     * @IsGranted("ROLE_USER")
+     */
+    public function following(User $user, Request $request): Response {
+        return new Response("<h1>It works!</h1>");
+    }
+
 }

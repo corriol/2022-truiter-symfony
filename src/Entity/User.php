@@ -56,9 +56,22 @@ class User implements UserInterface
      */
     private $tweets;
 
+    /**
+     * @ORM\ManyToMany(targetEntity=User::class, inversedBy="followers")
+     */
+    private $following;
+
+    /**
+     * @ORM\ManyToMany(targetEntity=User::class, mappedBy="following")
+     */
+    private $followers;
+
     public function __construct()
     {
         $this->tweets = new ArrayCollection();
+        $this->following = new ArrayCollection();
+        $this->followers = new ArrayCollection();
+
     }
 
     public function getId(): ?int
@@ -164,5 +177,56 @@ class User implements UserInterface
     public function getUserIdentifier(): string
     {
         return $this->getUsername();
+    }
+
+    /**
+     * @return Collection<int, self>
+     */
+    public function getFollowing(): Collection
+    {
+        return $this->following;
+    }
+
+    public function addFollowing(self $following): self
+    {
+        if (!$this->following->contains($following)) {
+            $this->following[] = $following;
+        }
+
+        return $this;
+    }
+
+    public function removeFollowing(self $following): self
+    {
+        $this->following->removeElement($following);
+
+        return $this;
+    }
+
+    /**
+     * @return Collection<int, self>
+     */
+    public function getFollowers(): Collection
+    {
+        return $this->followers;
+    }
+
+    public function addFollower(self $follower): self
+    {
+        if (!$this->followers->contains($follower)) {
+            $this->followers[] = $follower;
+            $follower->addFollowing($this);
+        }
+
+        return $this;
+    }
+
+    public function removeFollower(self $follower): self
+    {
+        if ($this->followers->removeElement($follower)) {
+            $follower->removeFollowing($this);
+        }
+
+        return $this;
     }
 }
