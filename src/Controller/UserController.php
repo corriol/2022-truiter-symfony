@@ -2,9 +2,11 @@
 
 namespace App\Controller;
 
+use App\Entity\User;
 use App\Form\UserType;
 use App\Repository\TweetRepository;
 use App\Repository\UserRepository;
+use Doctrine\ORM\EntityManagerInterface;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
@@ -55,5 +57,19 @@ class UserController extends AbstractController
             'form'=>$form->createView()
         ]);
 
+    }
+    /**
+     * @Route("/user/{id}/following", name="app_user_following", methods={"POST"})
+     * @IsGranted("ROLE_USER")
+     */
+    public function following(User $user, Request $request, UserRepository $userRepository){
+        $userTargetId = $request->request->getInt("user-target", 0);
+        $userTarget = $userRepository->find($userTargetId);
+
+        $user->addFollowing($userTarget);
+        $userRepository->add($user, true);
+        $this->addFlash('info', "Estàs seguint a aquest usuari");
+
+        return $this->redirectToRoute('app_user', ["username"=>$userTarget->getUsername()]);
     }
 }

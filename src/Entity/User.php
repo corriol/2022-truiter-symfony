@@ -188,7 +188,7 @@ class User implements UserInterface
 
     public function addFollowing(self $following): self
     {
-        if (!$this->following->contains($following) && $this->getUsername()!=$following->getUsername()) {
+        if (!$this->following->contains($following) && $this!=$following) {
             $this->following[] = $following;
         }
 

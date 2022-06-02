@@ -14,7 +14,10 @@
                 {% if user == app.user %}
                     <a href="{{ path('app_settings_profile') }}" class="btn btn-primary rounded-pill">Editar perfil</a>
                 {% else %}
-                    <a href="#" class="btn btn-primary rounded-pill">Seguix</a>
+                    <form method="POST" action="{{ path('app_user_following', {id: app.user.id}) }}">
+                        <input type="hidden" name="user-target" value="{{ user.id }}">
+                    <button type="submit" class="btn btn-primary rounded-pill">Seguix</button>
+                    </form>
                 {% endif %}
             </div>
             <div>
