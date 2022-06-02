@@ -22,8 +22,8 @@
                 <p class="text-muted">@{{ user.username }}</p>
             </div>
             <div class="d-flex">
-                <p class="me-2"><strong>0</strong> Seguint</p>
-                <p><strong>0</strong> Seguidors</p>
+                <p class="me-2"><strong>{{ user.following | length }}</strong> Seguint</p>
+                <p><strong>{{ user.followers | length }}</strong> Seguidors</p>
             </div>
         </div>
 

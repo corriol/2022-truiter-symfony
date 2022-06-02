@@ -33,13 +33,19 @@ class AppFixtures extends Fixture
         $manager->persist($user);
 
         $users[] = $user;
-        for ($i=0; $i<3; $i++) {
+        for ($i=0; $i<10; $i++) {
             $user = new User();
             $user->setName($this->faker->name);
             $user->setUsername(($this->faker->userName));
             $user->setPassword($this->hasher->hashPassword($user, "user"));
             $manager->persist($user);
             $users[] = $user;
+        }
+
+        foreach($users as $user) {
+            for ($i=0; $i<rand(0,10); $i++) {
+                $user->addFollowing($users[array_rand($users)]);
+            }
         }
 
         for ($i=0; $i<20; $i++) {
