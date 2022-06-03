@@ -27,7 +27,7 @@ use Vich\UploaderBundle\Mapping\Annotation as Vich;
  * @UniqueEntity(fields={"username"}, message="There is already an account with this username")
  * @Vich\Uploadable
  */
-class User implements UserInterface
+class User implements UserInterface, \Serializable
 {
     /**
      * @ORM\Id
@@ -77,7 +77,7 @@ class User implements UserInterface
      *
      * @var File|null
      */
-    private File $profileFile;
+    private ?File $profileFile = null;
 
     /**
      * @ORM\Column(type="string", length=255, nullable=true)
@@ -85,7 +85,7 @@ class User implements UserInterface
     private ?string $profile = null;
 
     /**
-     * @ORM\Column(type="datetime")
+     * @ORM\Column(type="datetime", nullable=true)
      *
      * @var \DateTimeInterface|null
      */
@@ -292,5 +292,31 @@ class User implements UserInterface
         return $this;
     }
 
+    /**
+     * String representation of object.
+     * @link https://php.net/manual/en/serializable.serialize.php
+     * @return string|null The string representation of the object or null
+     * @throws Exception Returning other type than string or null
+     */
+    public function serialize(): ?string
+    {
+        return serialize([
+            $this->getId(),
+            $this->getUsername(),
+            $this->getPassword()
+        ]);
+    }
+
+    /**
+     * Constructs the object.
+     * @link https://php.net/manual/en/serializable.unserialize.php
+     * @param string $serialized The string representation of the object.
+     * @return void
+     */
+    public function unserialize($serialized)
+    {
+        list( $this->id, $this->username, $this->password) =
+            unserialize($serialized, ['allowed_classes' => false]);
+    }
 
 }

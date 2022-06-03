@@ -14,6 +14,8 @@ use Symfony\Component\Form\Extension\Core\Type\TextareaType;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
+use function Symfony\Component\Translation\t;
+
 
 class DefaultController extends AbstractController
 {
@@ -37,7 +39,8 @@ class DefaultController extends AbstractController
             if ($form->isSubmitted() && $form->isValid()) {
 
                 $tweetRepository->add($tweet, true);
-                $this->addFlash("info", "El tuit s'ha creat amb èxit");
+
+                $this->addFlash("info", t("Tweet has been published"));
 
                 return $this->redirectToRoute('home');
             }
