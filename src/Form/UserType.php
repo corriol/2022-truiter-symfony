@@ -6,6 +6,7 @@ use App\Entity\User;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
+use Vich\UploaderBundle\Form\Type\VichImageType;
 
 class UserType extends AbstractType
 {
@@ -14,6 +15,16 @@ class UserType extends AbstractType
         $builder
             ->add('name')
             ->add('username')
+            ->add('profileFile', VichImageType::class, [
+                'required' => false,
+                'allow_delete' => true,
+                'delete_label' => 'esborrar imatge',
+                'download_label' => 'descarregar imatge',
+                'download_uri' => true,
+                'image_uri' => true,
+//                'imagine_pattern' => '...',
+                'asset_helper' => true,
+            ])
         ;
     }
 

@@ -3,6 +3,10 @@ twig:
 
     form_themes:
       ['bootstrap_5_layout.html.twig']
+
+    globals:
+        profile_url: '%app.user.profile.url%'
+
 when@test:
     twig:
         strict_variables: true

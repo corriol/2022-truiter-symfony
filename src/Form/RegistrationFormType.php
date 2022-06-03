@@ -11,6 +11,7 @@ use Symfony\Component\OptionsResolver\OptionsResolver;
 use Symfony\Component\Validator\Constraints\IsTrue;
 use Symfony\Component\Validator\Constraints\Length;
 use Symfony\Component\Validator\Constraints\NotBlank;
+use Vich\UploaderBundle\Form\Type\VichImageType;
 
 class RegistrationFormType extends AbstractType
 {
@@ -18,6 +19,7 @@ class RegistrationFormType extends AbstractType
     {
         $builder
             ->add('username')
+            ->add('name')
             ->add('agreeTerms', CheckboxType::class, [
                 'mapped' => false,
                 'constraints' => [
@@ -43,8 +45,16 @@ class RegistrationFormType extends AbstractType
                     ]),
                 ],
             ])
-            ->add('name')
-        ;
+            ->add('profileFile', VichImageType::class, [
+                'required' => false,
+                'allow_delete' => true,
+                'delete_label' => 'esborrar imatge',
+                'download_label' => 'descarregar imatge',
+                'download_uri' => true,
+                'image_uri' => true,
+//                'imagine_pattern' => '...',
+                'asset_helper' => true,
+            ]);;
     }
 
     public function configureOptions(OptionsResolver $resolver): void

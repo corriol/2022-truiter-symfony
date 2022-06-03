@@ -9,7 +9,7 @@
             <div class="d-flex justify-content-between align-items-start">
                 <div style="margin-top:-60px; width:100px; height: 100px" class="ratio ratio-1x1"><img
                             style="object-fit:cover" class="border border-light border-3 rounded-circle"
-                            src="{{ asset('images/twitter-egg.avif') }}"/></div>
+                            src="{{ profile_url ~ asset( user.profile) }} "/></div>
 
                 {% if user == app.user %}
                     <a href="{{ path('app_settings_profile') }}" class="btn btn-primary rounded-pill">Editar perfil</a>

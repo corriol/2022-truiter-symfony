@@ -10,26 +10,39 @@ use Faker\Generator;
 use Doctrine\Bundle\FixturesBundle\Fixture;
 use Doctrine\Persistence\ObjectManager;
 use Symfony\Component\PasswordHasher\Hasher\UserPasswordHasherInterface;
+use WW\Faker\Provider\Picture;
+use Symfony\Component\DependencyInjection\ParameterBag\ContainerBagInterface;
 
 class AppFixtures extends Fixture
 {
 
     public Generator $faker;
     public UserPasswordHasherInterface $hasher;
-    public function __construct(UserPasswordHasherInterface  $hasher)
+    public ContainerBagInterface $params;
+
+    public function __construct(UserPasswordHasherInterface  $hasher, ContainerBagInterface $params)
     {
-        $this->faker = Factory::create('ca_ES');
+        $this->faker = Factory::create('es_ES');
+        $this->faker->addProvider(new Picture($this->faker));
         $this->hasher = $hasher;
+        $this->params = $params;
     }
 
     public function load(ObjectManager $manager): void
     {
 
+        $profileDir = $this->params->get('app.user.profile.dir');
         $users = [];
         $user = new User();
         $user->setName("user");
         $user->setUsername("user");
         $user->setPassword($this->hasher->hashPassword($user, "user"));
+
+        $user->setProfile($this->faker->picture($profileDir, 400, 400, false));
+        // 400x400
+        // 135x135
+        // 40x40
+
         $manager->persist($user);
 
         $users[] = $user;
@@ -38,6 +51,8 @@ class AppFixtures extends Fixture
             $user->setName($this->faker->name);
             $user->setUsername(($this->faker->userName));
             $user->setPassword($this->hasher->hashPassword($user, "user"));
+            $user->setProfile($this->faker->picture($profileDir, 400, 400, false));
+
             $manager->persist($user);
             $users[] = $user;
         }
