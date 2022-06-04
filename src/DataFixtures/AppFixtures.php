@@ -10,6 +10,7 @@ use Faker\Generator;
 use Doctrine\Bundle\FixturesBundle\Fixture;
 use Doctrine\Persistence\ObjectManager;
 use Symfony\Component\PasswordHasher\Hasher\UserPasswordHasherInterface;
+use Symfony\Component\Validator\Constraints\Date;
 use WW\Faker\Provider\Picture;
 use Symfony\Component\DependencyInjection\ParameterBag\ContainerBagInterface;
 
@@ -22,7 +23,7 @@ class AppFixtures extends Fixture
 
     public function __construct(UserPasswordHasherInterface  $hasher, ContainerBagInterface $params)
     {
-        $this->faker = Factory::create('es_ES');
+        $this->faker = Factory::create('ca_ES');
         $this->faker->addProvider(new Picture($this->faker));
         $this->hasher = $hasher;
         $this->params = $params;
