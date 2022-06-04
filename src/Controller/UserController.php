@@ -12,6 +12,7 @@ use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
+use function Symfony\Component\Translation\t;
 
 
 class UserController extends AbstractController
@@ -24,7 +25,7 @@ class UserController extends AbstractController
     {
         $user = $userRepository->findOneBy(["username"=>$username]);
         if (empty($user))
-            $this->createNotFoundException("L'usuari $username no existeix!");
+            throw $this->createNotFoundException(t("User %user% doesn't exist", ["%user%"=>$username]));
 
         $tuits = $tweetRepository->findBy(["user"=>$user], ["createdAt"=>"DESC"]);
 

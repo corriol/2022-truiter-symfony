@@ -11,7 +11,7 @@
                             style="object-fit:cover" class="border border-light border-3 rounded-circle"
 
                         {%  if user.profile %}
-                            src="{{ profile_url ~ asset( user.profile) }}"
+                            src="{{ (profile_url ~ asset( user.profile)) |  imagine_filter('thumb_400')}}"
                         {% else %}
                             src="{{ asset('images/twitter-egg.avif') }}"
                         {% endif %}

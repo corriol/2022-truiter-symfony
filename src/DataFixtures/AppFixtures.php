@@ -32,6 +32,10 @@ class AppFixtures extends Fixture
     public function load(ObjectManager $manager): void
     {
 
+
+        for ($i=0; $i<10; $i++)
+            $this->faker->picture('resources', 1920, 1080);
+
         $profileDir = $this->params->get('app.user.profile.dir');
         $users = [];
         $user = new User();
