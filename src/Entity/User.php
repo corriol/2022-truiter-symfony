@@ -13,6 +13,7 @@ use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
 use Symfony\Component\Security\Core\User\UserInterface;
 use Symfony\Component\Validator\Constraints as Assert;
 use Symfony\Component\HttpFoundation\File\File;
+use Symfony\UX\Cropperjs\Factory\CropperInterface;
 use Vich\UploaderBundle\Mapping\Annotation as Vich;
 
 /**
@@ -70,6 +71,7 @@ class User implements UserInterface, \Serializable
     private $followers;
 
 
+    private $crop;
     /**
      * NOTE: This is not a mapped field of entity metadata, just a simple property.
      *
@@ -171,7 +173,7 @@ class User implements UserInterface, \Serializable
 
     public function __toString(): string
     {
-       return $this->getName();
+        return $this->getName();
     }
 
     /**
@@ -185,7 +187,7 @@ class User implements UserInterface, \Serializable
     /**
      * @return string|null
      */
-    public function getSalt():?string
+    public function getSalt(): ?string
     {
         return null;
     }
@@ -213,7 +215,7 @@ class User implements UserInterface, \Serializable
 
     public function addFollowing(self $following): self
     {
-        if (!$this->following->contains($following) && $this!=$following) {
+        if (!$this->following->contains($following) && $this != $following) {
             $this->following[] = $following;
         }
 
@@ -267,7 +269,6 @@ class User implements UserInterface, \Serializable
     }
 
 
-
     /**
      * @return File|null
      */
@@ -315,8 +316,23 @@ class User implements UserInterface, \Serializable
      */
     public function unserialize($serialized)
     {
-        list( $this->id, $this->username, $this->password) =
+        list($this->id, $this->username, $this->password) =
             unserialize($serialized, ['allowed_classes' => false]);
     }
 
+    /**
+     * @return mixed
+     */
+    public function getCrop()
+    {
+        return $this->crop;
+    }
+
+    /**
+     * @param mixed $crop
+     */
+    public function setCrop($crop): void
+    {
+        $this->crop = $crop;
+    }
 }

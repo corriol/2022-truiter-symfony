@@ -2,7 +2,8 @@ twig:
     default_path: '%kernel.project_dir%/templates'
 
     form_themes:
-      ['bootstrap_5_layout.html.twig']
+      - 'bootstrap_5_layout.html.twig'
+      - "@PrestaImage/form/bootstrap_5.html.twig"
 
     globals:
         profile_url: '%app.user.profile.url%'

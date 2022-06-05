@@ -22,3 +22,46 @@ canviant la cookie_secure to false.
 
 - https://symfony.com/bundles/LiipImagineBundle/current/installation.html#step-1-download-the-bundle
 - https://symfony.com/bundles/LiipImagineBundle/current/basic-usage.html
+
+## Symfony UX
+
+Quant a l'ús de `ux-cropper` es descarta el seu ús ja que implica 
+que les imatges estiguen ja al servidor per a manipular-les.
+
+- https://github.com/symfony/ux-twig-component
+- https://www.youtube.com/watch?v=0lQUQA4p7ac
+- https://symfony.com/doc/current/frontend/ux.html
+
+## Integrant Cropperjs: PrestaImageBundle
+
+npm i cropperjs
+
+https://github.com/prestaconcept/PrestaImageBundle
+
+### Implementació en WebpackEncore
+
+- https://github.com/prestaconcept/PrestaImageBundle/blob/master/Resources/doc/webpack.md
+
+### Errors
+
+TypeError: __webpack_require__.nmd(...) is not a function
+
+```
+  .addAliases({
+        prestaimage: path.resolve(__dirname, 'public/bundles/prestaimage')
+    })
+```
+
+this.$modal.modal is not a function
+
+Aquest error es soluciona posant el 2n paràmetre de Cropper a `true`:
+```
+$(function () {
+    $('.cropper').each(function () {
+        new Cropper($(this), true);
+    });
+});
+```
+
+
+

@@ -42,24 +42,25 @@
      guidetolerance="10"
      inkscape:pageopacity="0"
      inkscape:pageshadow="2"
-     inkscape:window-width="1280"
-     inkscape:window-height="995"
+     inkscape:window-width="1920"
+     inkscape:window-height="1023"
      id="namedview66"
      showgrid="false"
      inkscape:zoom="3.4122449"
-     inkscape:cx="97.380946"
+     inkscape:cx="31.002358"
      inkscape:cy="137.46237"
-     inkscape:window-x="0"
-     inkscape:window-y="0"
+     inkscape:window-x="1920"
+     inkscape:window-y="28"
      inkscape:window-maximized="1"
-     inkscape:current-layer="g31192" />
+     inkscape:current-layer="g30314"
+     inkscape:pagecheckerboard="true" />
   <g
      id="g30314"
      transform="translate(2.2181818e-6,0.29306265)">
     <g
        id="g31254"
        style="fill:#ffffff"
-       transform="translate(28.17233,-50.879595)">
+       transform="matrix(-1,0,0,1,207.99731,-50.879595)">
       <g
          style="fill:#ffffff"
          transform="translate(3.1280503,18.456841)"

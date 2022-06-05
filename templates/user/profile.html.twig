@@ -1,5 +1,16 @@
 {% extends 'base_truiter.html.twig' %}
 
+{% block stylesheets %}
+    {{ parent() }}
+    {{ encore_entry_link_tags('cropper') }}
+{% endblock %}
+
+{% block javascripts %}
+    {{ parent() }}
+    {{ encore_entry_script_tags('cropper') }}
+{% endblock %}
+
+
 {% block title %}Log in!{% endblock %}
 
 {% block body %}
