@@ -20,6 +20,10 @@ liip_imagine:
 
             # list of transformations to apply (the "filters")
             filters :
+                relative_resize:
+
+                    # given 50x40px, output 75x60px using "heighten" option
+                    heighten: 400
 
                 # create a thumbnail: set size to 120x90 and use the "outbound" mode
                 # to crop the image when the size ratio of the input differs

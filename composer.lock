@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "9677a7924315e2cdea5704e505948260",
+    "content-hash": "b664af3cf3b402781365a7337d69be01",
     "packages": [
         {
             "name": "doctrine/annotations",
@@ -2199,6 +2199,64 @@
                 "source": "https://github.com/phpstan/phpdoc-parser/tree/1.5.1"
             },
             "time": "2022-05-05T11:32:40+00:00"
+        },
+        {
+            "name": "presta/image-bundle",
+            "version": "v2.4.0",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/prestaconcept/PrestaImageBundle.git",
+                "reference": "2493f1aa68990d0fb54f5dcec9709c27a660f814"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/prestaconcept/PrestaImageBundle/zipball/2493f1aa68990d0fb54f5dcec9709c27a660f814",
+                "reference": "2493f1aa68990d0fb54f5dcec9709c27a660f814",
+                "shasum": ""
+            },
+            "require": {
+                "php": "^7.1|^8.0",
+                "symfony/form": "^4.4|^5.0|^6.0",
+                "vich/uploader-bundle": "^1.12"
+            },
+            "type": "symfony-bundle",
+            "extra": {
+                "branch-alias": {
+                    "dev-1.x": "1.x-dev",
+                    "dev-master": "2.x-dev"
+                }
+            },
+            "autoload": {
+                "psr-4": {
+                    "Presta\\ImageBundle\\": ""
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Benoit Jouhaud",
+                    "email": "bjouhaud@prestaconcept.net"
+                }
+            ],
+            "description": "Allow to crop local and remote image before uploading them through a classic form.",
+            "homepage": "https://github.com/prestaconcept/PrestaImageBundle",
+            "keywords": [
+                "bundle",
+                "form",
+                "image",
+                "local",
+                "picture",
+                "remote",
+                "symfony"
+            ],
+            "support": {
+                "issues": "https://github.com/prestaconcept/PrestaImageBundle/issues",
+                "source": "https://github.com/prestaconcept/PrestaImageBundle/tree/v2.4.0"
+            },
+            "time": "2022-04-29T14:14:06+00:00"
         },
         {
             "name": "psr/cache",
@@ -7700,6 +7758,77 @@
             "time": "2022-01-02T09:53:40+00:00"
         },
         {
+            "name": "symfony/webpack-encore-bundle",
+            "version": "v1.14.1",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/symfony/webpack-encore-bundle.git",
+                "reference": "6b18be99bf2a5a402b80a2c00043fe0b365fe836"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/symfony/webpack-encore-bundle/zipball/6b18be99bf2a5a402b80a2c00043fe0b365fe836",
+                "reference": "6b18be99bf2a5a402b80a2c00043fe0b365fe836",
+                "shasum": ""
+            },
+            "require": {
+                "php": ">=7.1.3",
+                "symfony/asset": "^4.4 || ^5.0 || ^6.0",
+                "symfony/config": "^4.4 || ^5.0 || ^6.0",
+                "symfony/dependency-injection": "^4.4 || ^5.0 || ^6.0",
+                "symfony/http-kernel": "^4.4 || ^5.0 || ^6.0",
+                "symfony/service-contracts": "^1.0 || ^2.0 || ^3.0"
+            },
+            "require-dev": {
+                "symfony/framework-bundle": "^4.4 || ^5.0 || ^6.0",
+                "symfony/phpunit-bridge": "^5.3 || ^6.0",
+                "symfony/twig-bundle": "^4.4 || ^5.0 || ^6.0",
+                "symfony/web-link": "^4.4 || ^5.0 || ^6.0"
+            },
+            "type": "symfony-bundle",
+            "extra": {
+                "thanks": {
+                    "name": "symfony/webpack-encore",
+                    "url": "https://github.com/symfony/webpack-encore"
+                }
+            },
+            "autoload": {
+                "psr-4": {
+                    "Symfony\\WebpackEncoreBundle\\": "src"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Symfony Community",
+                    "homepage": "https://symfony.com/contributors"
+                }
+            ],
+            "description": "Integration with your Symfony app & Webpack Encore!",
+            "support": {
+                "issues": "https://github.com/symfony/webpack-encore-bundle/issues",
+                "source": "https://github.com/symfony/webpack-encore-bundle/tree/v1.14.1"
+            },
+            "funding": [
+                {
+                    "url": "https://symfony.com/sponsor",
+                    "type": "custom"
+                },
+                {
+                    "url": "https://github.com/fabpot",
+                    "type": "github"
+                },
+                {
+                    "url": "https://tidelift.com/funding/github/packagist/symfony/symfony",
+                    "type": "tidelift"
+                }
+            ],
+            "time": "2022-05-03T17:55:32+00:00"
+        },
+        {
             "name": "symfony/yaml",
             "version": "v5.4.3",
             "source": {
@@ -10591,5 +10720,5 @@
         "ext-iconv": "*"
     },
     "platform-dev": [],
-    "plugin-api-version": "2.3.0"
+    "plugin-api-version": "2.2.0"
 }
