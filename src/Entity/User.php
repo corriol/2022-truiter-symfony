@@ -12,6 +12,9 @@ use Doctrine\ORM\Mapping\UniqueConstraint;
 use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
 use Symfony\Component\Security\Core\User\UserInterface;
 use Symfony\Component\Validator\Constraints as Assert;
+use Symfony\Component\HttpFoundation\File\File;
+use Symfony\UX\Cropperjs\Factory\CropperInterface;
+use Vich\UploaderBundle\Mapping\Annotation as Vich;
 
 /**
  * @ORM\Entity(repositoryClass=UserRepository::class)
@@ -23,8 +26,9 @@ use Symfony\Component\Validator\Constraints as Assert;
  *      }
  * )
  * @UniqueEntity(fields={"username"}, message="There is already an account with this username")
+ * @Vich\Uploadable
  */
-class User implements UserInterface
+class User implements UserInterface, \Serializable
 {
     /**
      * @ORM\Id
@@ -66,12 +70,34 @@ class User implements UserInterface
      */
     private $followers;
 
+
+    private $crop;
+    /**
+     * NOTE: This is not a mapped field of entity metadata, just a simple property.
+     *
+     * @Vich\UploadableField(mapping="profile_image", fileNameProperty="profile")
+     *
+     * @var File|null
+     */
+    private ?File $profileFile = null;
+
+    /**
+     * @ORM\Column(type="string", length=255, nullable=true)
+     */
+    private ?string $profile = null;
+
+    /**
+     * @ORM\Column(type="datetime", nullable=true)
+     *
+     * @var \DateTimeInterface|null
+     */
+    private ?\DateTimeInterface $updatedAt;
+
     public function __construct()
     {
         $this->tweets = new ArrayCollection();
         $this->following = new ArrayCollection();
         $this->followers = new ArrayCollection();
-
     }
 
     public function getId(): ?int
@@ -147,7 +173,7 @@ class User implements UserInterface
 
     public function __toString(): string
     {
-       return $this->getName();
+        return $this->getName();
     }
 
     /**
@@ -161,7 +187,7 @@ class User implements UserInterface
     /**
      * @return string|null
      */
-    public function getSalt():?string
+    public function getSalt(): ?string
     {
         return null;
     }
@@ -189,7 +215,7 @@ class User implements UserInterface
 
     public function addFollowing(self $following): self
     {
-        if (!$this->following->contains($following)) {
+        if (!$this->following->contains($following) && $this != $following) {
             $this->following[] = $following;
         }
 
@@ -228,5 +254,85 @@ class User implements UserInterface
         }
 
         return $this;
+    }
+
+    public function getProfile(): ?string
+    {
+        return $this->profile;
+    }
+
+    public function setProfile(?string $profile): self
+    {
+        $this->profile = $profile;
+
+        return $this;
+    }
+
+
+    /**
+     * @return File|null
+     */
+    public function getProfileFile(): ?File
+    {
+        return $this->profileFile;
+    }
+
+    /**
+     * @param File|null $profileFile
+     * @return User
+     */
+    public function setProfileFile(?File $profileFile): User
+    {
+        $this->profileFile = $profileFile;
+
+        if (null !== $profileFile) {
+            // It is required that at least one field changes if you are using doctrine
+            // otherwise the event listeners won't be called and the file is lost
+            $this->updatedAt = new \DateTimeImmutable();
+        }
+        return $this;
+    }
+
+    /**
+     * String representation of object.
+     * @link https://php.net/manual/en/serializable.serialize.php
+     * @return string|null The string representation of the object or null
+     * @throws Exception Returning other type than string or null
+     */
+    public function serialize(): ?string
+    {
+        return serialize([
+            $this->getId(),
+            $this->getUsername(),
+            $this->getPassword()
+        ]);
+    }
+
+    /**
+     * Constructs the object.
+     * @link https://php.net/manual/en/serializable.unserialize.php
+     * @param string $serialized The string representation of the object.
+     * @return void
+     */
+    public function unserialize($serialized)
+    {
+        list($this->id, $this->username, $this->password) =
+            unserialize($serialized, ['allowed_classes' => false]);
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getCrop()
+    {
+        return $this->crop;
+    }
+
+    /**
+     * @param mixed $crop
+     */
+    public function setCrop($crop): void
+    {
+        $this->crop = $crop;
     }
 }

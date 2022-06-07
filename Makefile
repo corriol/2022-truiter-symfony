@@ -15,8 +15,8 @@ rebuild:
 
 
 	@ echo "Esborrant i creant el directori si no existeix.."
-	-rm -rf public/images
-	-mkdir -p public/images/posters
+	-rm -rf public/images/profile
+	-mkdir -p public/images/profile
 	 chmod 777 -R public/images
 
 	@ echo "Carregant les dades..."

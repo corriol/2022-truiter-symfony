@@ -1,0 +1,8 @@
+vich_uploader:
+    db_driver: orm
+
+    mappings:
+        profile_image:
+            uri_prefix: '%app.user.profile.url%'
+            upload_destination: '%app.user.profile.dir%'
+            namer: Vich\UploaderBundle\Naming\UniqidNamer
