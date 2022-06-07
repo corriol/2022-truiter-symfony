@@ -68,8 +68,7 @@ class UserController extends AbstractController
      * @Route("/user/{id}/following", name="app_user_following", methods={"POST"})
      * @IsGranted("ROLE_USER")
      */
-    public
-    function following(User $user, Request $request, UserRepository $userRepository)
+    public function following(User $user, Request $request, UserRepository $userRepository)
     {
         $userTargetId = $request->request->getInt("user-target", 0);
         $userTarget = $userRepository->find($userTargetId);
