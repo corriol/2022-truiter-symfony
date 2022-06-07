@@ -47,23 +47,24 @@ class FollowUserUseCaseTest extends TestCase
      */
     public function testUserCanFollowOtherUser(): void
     {
-        $user = $this->createPartialMock(User::class, ['addFollowing', 'getFollowing']);
+        $user = new User();
         $userTarget = $this->createPartialMock(User::class, ['setUsername']);
         $userTarget2 = $this->createPartialMock(User::class, ['setUsername']);
         //$userTarget->method('setUsername')->willReturn($userTarget);
 
-        $user->method('addFollowing')->willReturn($user);
+        //$user->method('addFollowing')->willReturn($user);
 
         $collection = $this->createPartialMock(ArrayCollection::class, ['contains']);
         $collection->method("contains")->willReturn(false);
         $collection->add($userTarget2);
 
-        $user->method('getFollowing')->willReturn($collection);
+        $user->addFollowing($userTarget2);
+        //$user->method('getFollowing')->willReturn($collection);
 
         $followUserUseCase = new FollowUserUseCase($user, $userTarget);
         $user = $followUserUseCase->execute();
 
-        $this->assertContains($userTarget, $user->getFollowing());
+        $this->assertCount(2, $user->getFollowing());
     }
 
     /**
