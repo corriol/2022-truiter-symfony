@@ -68,6 +68,8 @@ class AppFixtures extends Fixture
             }
         }
 
+
+
         for ($i=0; $i<20; $i++) {
             $tweet = new Tweet();
             $tweet->setText($this->faker->realText(140));
