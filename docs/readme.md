@@ -62,6 +62,8 @@ $(function () {
     });
 });
 ```
+## Extenent el repositori
 
+- https://stackoverflow.com/questions/43073982/doctrine-how-to-check-if-a-collection-contains-an-entity
 
 

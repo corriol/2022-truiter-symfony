@@ -3,6 +3,7 @@
 namespace App\Repository;
 
 use App\Entity\Tweet;
+use App\Entity\User;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Doctrine\Persistence\ManagerRegistry;
 
@@ -63,4 +64,19 @@ class TweetRepository extends ServiceEntityRepository
 //            ->getOneOrNullResult()
 //        ;
 //    }
+
+
+    /**
+     * @return Tweet[] Returns an array of Tweet objects
+     */
+    public function findByFollowingUsers(User $user): array
+    {
+        $qb = $this->createQueryBuilder('t')
+            ->innerJoin('t.user', 'u');
+
+        $qb->andWhere($qb->expr()->isMemberOf(':user', 'u.followers'))
+            ->setParameter('user', $user);
+
+        return $qb->getQuery()->getResult();
+    }
 }

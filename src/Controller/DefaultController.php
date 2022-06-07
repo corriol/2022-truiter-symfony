@@ -34,16 +34,15 @@ class DefaultController extends AbstractController
             $tweet->setUser($this->getUser());
 
             $form = $this->createForm(TweetType::class, $tweet);
-
             $form->handleRequest($request);
+
             if ($form->isSubmitted() && $form->isValid()) {
-
                 $tweetRepository->add($tweet, true);
-
                 $this->addFlash("info", t("Tweet has been published"));
-
                 return $this->redirectToRoute('home');
             }
+
+            $tweets = $tweetRepository->findByFollowingUsers($this->getUser());
         }
 
         return $this->render('default/index.html.twig', [
