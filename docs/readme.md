@@ -66,4 +66,8 @@ $(function () {
 
 - https://stackoverflow.com/questions/43073982/doctrine-how-to-check-if-a-collection-contains-an-entity
 
+## Canviar el pool d'adreces de xarxa de Docker
+
+- https://docs.docker.com/network/bridge/#use-the-default-bridge-network
+
 
