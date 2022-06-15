@@ -80,4 +80,15 @@ class UserController extends AbstractController
         return $this->redirectToRoute('app_user', ["username" => $userTarget->getUsername()]);
     }
 
+    /**
+     * @Route("/user/{id}/following", name="app_user_followers", methods={"GET"})
+     * @IsGranted("PUBLIC_ACCESS")
+     */
+    public function followers(User $user, Request $request, UserRepository $userRepository)
+    {
+        return $this->render('user/followers.html.twig',
+            [
+                'user' => $user
+            ]);
+    }
 }
