@@ -36,19 +36,20 @@
             </div>
             <div class="d-flex">
                 <p class="me-2"><strong>{{ user.following | length }}</strong> Seguint</p>
-                <p><a href="{{ path('app_user_followers', {id: user.id}) }}"><strong>{{ user.followers | length }}</strong> Seguidors</a></p>
+                <p><strong>{{ user.followers | length }}</strong> Seguidors</p>
             </div>
         </div>
 
     </header>
     <div class="p-3">
+        {% for follower in user.followers %}
         <div>
-            <h4>Tuits</h4>
+            <dl><dt>{{ follower.name }}</dt>
+                <dd><a href="{{ path('app_user', {username: follower.username}) }}">{{ follower.username }}</a></dd>
+
+            </dl>
 
         </div>
-
-        {% for truit in truits %}
-            {% include '_tuit.html.twig' %}
         {% endfor %}
     </div>
 {% endblock %}
